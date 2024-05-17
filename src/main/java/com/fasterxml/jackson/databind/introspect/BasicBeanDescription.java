@@ -561,8 +561,7 @@ anyField.getName()));
     {
         // First: return type must be compatible with the introspected class
         // (i.e. allowed to be sub-class, although usually is the same class)
-        Class<?> rt = am.getRawReturnType();
-        if (!getBeanClass().isAssignableFrom(rt)) {
+        if (!getBeanClass().isAssignableFrom(am.getRawReturnType())) {
             return false;
         }
         /* Also: must be a recognized factory method, meaning:
@@ -592,8 +591,7 @@ anyField.getName()));
     {
         // First: return type must be compatible with the introspected class
         // (i.e. allowed to be sub-class, although usually is the same class)
-        Class<?> rt = am.getRawReturnType();
-        if (!getBeanClass().isAssignableFrom(rt)) {
+        if (!getBeanClass().isAssignableFrom(am.getRawReturnType())) {
             return null;
         }
         // Also: must be a recognized factory method, meaning:
