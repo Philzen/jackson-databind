@@ -960,10 +960,9 @@ candidate.creator());
 
                 // If there's injection or explicit name, should be properties-based
                 useProps = (paramName != null);
-                if (!useProps) {
+                if (!useProps && beanDesc.findJsonValueAccessor() == null) {
                     // Otherwise, `@JsonValue` suggests delegation
-                    if (beanDesc.findJsonValueAccessor() != null) {
-                    } else if (injectId != null) {
+                    if (injectId != null) {
                         // But Injection suggests property-based (for legacy reasons?)
                         useProps = true;
                     } else if (paramDef != null) {
