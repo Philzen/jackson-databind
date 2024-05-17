@@ -201,10 +201,8 @@ public final class ClassUtil
              * easily (theoretically, we could try to check if parent
              * happens to be enclosing... but that gets convoluted)
              */
-            if (!allowNonStatic) {
-                if (!isStatic && getEnclosingClass(type) != null) {
-                    return "non-static member class";
-                }
+            if (!allowNonStatic && !isStatic && getEnclosingClass(type) != null) {
+                return "non-static member class";
             }
         }
         catch (SecurityException e) { }

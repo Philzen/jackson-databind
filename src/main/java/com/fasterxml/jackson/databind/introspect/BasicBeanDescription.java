@@ -576,17 +576,13 @@ anyField.getName()));
         }
         final String name = am.getName();
         // 24-Oct-2016, tatu: As per [databind#1429] must ensure takes exactly one arg
-        if ("valueOf".equals(name)) {
-            if (am.getParameterCount() == 1) {
-                return true;
-            }
+        if ("valueOf".equals(name) && am.getParameterCount() == 1) {
+            return true;
         }
         // [databind#208] Also accept "fromString()", if takes String or CharSequence
-        if ("fromString".equals(name)) {
-            if (am.getParameterCount() == 1) {
-                Class<?> cls = am.getRawParameterType(0);
-                return cls == String.class || CharSequence.class.isAssignableFrom(cls);
-            }
+        if ("fromString".equals(name) && am.getParameterCount() == 1) {
+            Class<?> cls = am.getRawParameterType(0);
+            return cls == String.class || CharSequence.class.isAssignableFrom(cls);
         }
         return false;
     }
@@ -613,18 +609,14 @@ anyField.getName()));
         }
         final String name = am.getName();
         // 24-Oct-2016, tatu: As per [databind#1429] must ensure takes exactly one arg
-        if ("valueOf".equals(name)) {
-            if (am.getParameterCount() == 1) {
-                return AnnotatedAndMetadata.of(am, mode);
-            }
+        if ("valueOf".equals(name) && am.getParameterCount() == 1) {
+            return AnnotatedAndMetadata.of(am, mode);
         }
         // [databind#208] Also accept "fromString()", if takes String or CharSequence
-        if ("fromString".equals(name)) {
-            if (am.getParameterCount() == 1) {
-                Class<?> cls = am.getRawParameterType(0);
-                if (cls == String.class || CharSequence.class.isAssignableFrom(cls)) {
-                    return AnnotatedAndMetadata.of(am, mode);
-                }
+        if ("fromString".equals(name) && am.getParameterCount() == 1) {
+            Class<?> cls = am.getRawParameterType(0);
+            if (cls == String.class || CharSequence.class.isAssignableFrom(cls)) {
+                return AnnotatedAndMetadata.of(am, mode);
             }
         }
         return null;

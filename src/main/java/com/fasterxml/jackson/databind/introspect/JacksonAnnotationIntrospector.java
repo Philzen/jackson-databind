@@ -1463,14 +1463,13 @@ public class JacksonAnnotationIntrospector
          }
          // 19-Apr-2016, tatu: As per [databind#1197], [databind#1122] (and some related),
          //    may or may not consider it a creator
-         if (_cfgConstructorPropertiesImpliesCreator ) {
-             if (a instanceof AnnotatedConstructor) {
-                 if (_java7Helper != null) {
-                     Boolean b = _java7Helper.hasCreatorAnnotation(a);
-                     if (b != null) {
-                         return b.booleanValue();
-                     }
-                 }
+         if (_cfgConstructorPropertiesImpliesCreator  
+             && a instanceof AnnotatedConstructor
+             && _java7Helper != null
+         ) {
+             Boolean b = _java7Helper.hasCreatorAnnotation(a);
+             if (b != null) {
+                 return b.booleanValue();
              }
          }
          return false;
@@ -1490,17 +1489,15 @@ public class JacksonAnnotationIntrospector
             return ann.mode();
         }
         if (_cfgConstructorPropertiesImpliesCreator
-                && config.isEnabled(MapperFeature.INFER_CREATOR_FROM_CONSTRUCTOR_PROPERTIES)
-            ) {
-            if (a instanceof AnnotatedConstructor) {
-                if (_java7Helper != null) {
-                    Boolean b = _java7Helper.hasCreatorAnnotation(a);
-                    if ((b != null) && b.booleanValue()) {
-                        // 13-Sep-2016, tatu: Judgment call, but I don't think JDK ever implies
-                        //    use of delegate; assumes as-properties implicitly
-                        return JsonCreator.Mode.PROPERTIES;
-                    }
-                }
+            && config.isEnabled(MapperFeature.INFER_CREATOR_FROM_CONSTRUCTOR_PROPERTIES)
+            && a instanceof AnnotatedConstructor
+            && _java7Helper != null
+        ) {
+            Boolean b = _java7Helper.hasCreatorAnnotation(a);
+            if ((b != null) && b.booleanValue()) {
+                // 13-Sep-2016, tatu: Judgment call, but I don't think JDK ever implies
+                //    use of delegate; assumes as-properties implicitly
+                return JsonCreator.Mode.PROPERTIES;
             }
         }
         return null;
@@ -1555,10 +1552,8 @@ public class JacksonAnnotationIntrospector
             AnnotatedParameter p = (AnnotatedParameter) a;
             AnnotatedWithParams ctor = p.getOwner();
 
-            if (ctor != null) {
-                if (_java7Helper != null) {
-                    return _java7Helper.findConstructorName(p);
-                }
+            if (ctor != null && _java7Helper != null) {
+                return _java7Helper.findConstructorName(p);
             }
         }
         return null;

@@ -1020,10 +1020,8 @@ candidate.creator());
             // One more thing: if implicit name matches property with a getter
             // or field, we'll consider it property-based as well
             String implName = propDef.getName();
-            if (implName != null && !implName.isEmpty()) {
-                if (propDef.couldSerialize()) {
-                    return true;
-                }
+            if (implName != null && !implName.isEmpty() && propDef.couldSerialize()) {
+                return true;
             }
             // [databind#3897]: Record canonical constructor will have implicitly named propDef
             return !propDef.isExplicitlyNamed() && beanDesc.isRecordType();
