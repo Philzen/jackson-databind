@@ -1027,9 +1027,7 @@ candidate.creator());
                 }
             }
             // [databind#3897]: Record canonical constructor will have implicitly named propDef
-            if (!propDef.isExplicitlyNamed() && beanDesc.isRecordType()) {
-                return true;
-            }
+            return !propDef.isExplicitlyNamed() && beanDesc.isRecordType();
         }
         // in absence of everything else, default to delegating
         return false;
@@ -1992,16 +1990,13 @@ factory.toString()));
                     ) {
                 return true;
             }
-            if (DateDeserializers.hasDeserializerFor(valueType)) {
-                return true;
-            }
+            return DateDeserializers.hasDeserializerFor(valueType);
         } else if (clsName.startsWith("com.fasterxml.")) {
             return JsonNode.class.isAssignableFrom(valueType)
                    || (valueType == TokenBuffer.class);
         } else {
             return OptionalHandlerFactory.instance.hasDeserializerFor(valueType);
         }
-        return false;
     }
 
     /*

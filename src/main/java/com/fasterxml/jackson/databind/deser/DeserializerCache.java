@@ -610,10 +610,7 @@ public final class DeserializerCache
             }
             // Second: map(-like) types may have value handler for key (but not type; keys are untyped)
             if (t.isMapLikeType()) {
-                JavaType kt = t.getKeyType();
-                if (kt.getValueHandler() != null) {
-                    return true;
-                }
+                return t.getKeyType().getValueHandler() != null;
             }
         }
         return false;

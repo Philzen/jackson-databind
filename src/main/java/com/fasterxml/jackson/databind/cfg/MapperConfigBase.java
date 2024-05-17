@@ -772,10 +772,7 @@ public abstract class MapperConfigBase<CFG extends ConfigFeature,
     public final JsonIgnoreProperties.Value getDefaultPropertyIgnorals(Class<?> type) {
         ConfigOverride overrides = _configOverrides.findOverride(type);
         if (overrides != null) {
-            JsonIgnoreProperties.Value v = overrides.getIgnorals();
-            if (v != null) {
-                return v;
-            }
+            return overrides.getIgnorals();     // may return null (same as below)
         }
         // 01-May-2015, tatu: Could return `Value.empty()` but for now `null`
         //   seems simpler as callers can avoid processing.

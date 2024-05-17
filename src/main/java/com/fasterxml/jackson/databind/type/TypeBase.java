@@ -141,10 +141,7 @@ public abstract class TypeBase
         }
         // and if not found, super class and its supertypes
         if (_superClass != null) {
-            JavaType type = _superClass.findSuperType(rawTarget);
-            if (type != null) {
-                return type;
-            }
+            return _superClass.findSuperType(rawTarget);
         }
         return null;
     }

@@ -134,11 +134,7 @@ public class AnnotatedFieldCollector
         }
         // Static fields are never included. Transient are (since 2.6), for
         // purpose of propagating removal
-        int mods = f.getModifiers();
-        if (Modifier.isStatic(mods)) {
-            return false;
-        }
-        return true;
+        return !Modifier.isStatic(f.getModifiers());
     }
 
     private final static class FieldBuilder {

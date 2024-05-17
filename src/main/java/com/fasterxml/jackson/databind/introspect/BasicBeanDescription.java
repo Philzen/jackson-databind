@@ -585,9 +585,7 @@ anyField.getName()));
         if ("fromString".equals(name)) {
             if (am.getParameterCount() == 1) {
                 Class<?> cls = am.getRawParameterType(0);
-                if (cls == String.class || CharSequence.class.isAssignableFrom(cls)) {
-                    return true;
-                }
+                return cls == String.class || CharSequence.class.isAssignableFrom(cls);
             }
         }
         return false;

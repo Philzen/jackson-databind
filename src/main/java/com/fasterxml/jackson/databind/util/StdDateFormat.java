@@ -607,15 +607,11 @@ public class StdDateFormat
      */
     protected boolean looksLikeISO8601(String dateStr)
     {
-        if (dateStr.length() >= 7 // really need 10, but...
+        return dateStr.length() >= 7 // really need 10, but...
             && Character.isDigit(dateStr.charAt(0))
             && Character.isDigit(dateStr.charAt(3))
             && dateStr.charAt(4) == '-'
-            && Character.isDigit(dateStr.charAt(5))
-            ) {
-            return true;
-        }
-        return false;
+            && Character.isDigit(dateStr.charAt(5));
     }
 
     private Date _parseDateFromLong(String longStr, ParsePosition pos) throws ParseException

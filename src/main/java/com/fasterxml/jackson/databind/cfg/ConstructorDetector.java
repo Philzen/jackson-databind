@@ -207,9 +207,7 @@ public final class ConstructorDetector
                 // 18-Sep-2020, tatu: Looks like must make an exception for Exception
                 //    types (ha!) -- at this point, single-String-arg constructor
                 //    is to be auto-detected
-                if (!Throwable.class.isAssignableFrom(rawType)) {
-                    return false;
-                }
+                return Throwable.class.isAssignableFrom(rawType);
             }
         }
         return true;

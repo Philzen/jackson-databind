@@ -246,12 +246,7 @@ public final class ClassUtil
         */
         String name = type.getName();
         // Hibernate uses proxies heavily as well:
-        if (name.startsWith("net.sf.cglib.proxy.")
-            || name.startsWith("org.hibernate.proxy.")) {
-            return true;
-        }
-        // Not one of known proxies, nope:
-        return false;
+        return name.startsWith("net.sf.cglib.proxy.") || name.startsWith("org.hibernate.proxy.");
     }
 
     /**
@@ -272,10 +267,9 @@ public final class ClassUtil
 
     public static boolean isCollectionMapOrArray(Class<?> type)
     {
-        if (type.isArray()) return true;
-        if (Collection.class.isAssignableFrom(type)) return true;
-        if (Map.class.isAssignableFrom(type)) return true;
-        return false;
+        return type.isArray() 
+            || Collection.class.isAssignableFrom(type)
+            || Map.class.isAssignableFrom(type);
     }
 
     public static boolean isBogusClass(Class<?> cls) {
@@ -342,12 +336,8 @@ public final class ClassUtil
         if (m.getParameterTypes().length != 0) {
             return false;
         }
-        // Can't be a void method
-        if (Void.TYPE == m.getReturnType()) {
-            return false;
-        }
-        // Otherwise looks ok:
-        return true;
+        // Can't be a void method, otherwise OK
+        return Void.TYPE != m.getReturnType();
     }
 
     /*

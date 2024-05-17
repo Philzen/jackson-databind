@@ -171,12 +171,9 @@ public class EnumSetDeserializer
     @Override
     public boolean isCachable() {
         // One caveat: content deserializer should prevent caching
-        if ((_enumType.getValueHandler() != null)
-                // Another: polymorphic deserialization
-                || (_valueTypeDeserializer != null)) {
-            return false;
-        }
-        return true;
+        return (_enumType.getValueHandler() == null)
+            // Another: polymorphic deserialization
+            && (_valueTypeDeserializer == null);
     }
     
     @Override // since 2.12

@@ -1039,9 +1039,7 @@ public abstract class SerializerProvider
         // 23-Apr-2015, tatu: "empty" serializer is trickier; needs to consider
         //    error handling
         if (isEnabled(SerializationFeature.FAIL_ON_EMPTY_BEANS)) {
-            if (ser.getClass() == UnknownSerializer.class) {
-                return true;
-            }
+            return ser.getClass() == UnknownSerializer.class;
         }
         return false;
     }

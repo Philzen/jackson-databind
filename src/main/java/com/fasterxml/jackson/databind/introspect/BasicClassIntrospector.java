@@ -257,10 +257,7 @@ public class BasicClassIntrospector
         if (ClassUtil.isJDKClass(raw)) {
             // 23-Sep-2014, tatu: Should we be conservative here (minimal number
             //    of matches), or ambitious? Let's do latter for now.
-            if (Collection.class.isAssignableFrom(raw)
-                    || Map.class.isAssignableFrom(raw)) {
-                return true;
-            }
+            return Collection.class.isAssignableFrom(raw) || Map.class.isAssignableFrom(raw);
         }
         return false;
     }

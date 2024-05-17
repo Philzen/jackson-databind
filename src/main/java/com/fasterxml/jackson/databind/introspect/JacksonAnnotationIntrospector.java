@@ -1557,10 +1557,7 @@ public class JacksonAnnotationIntrospector
 
             if (ctor != null) {
                 if (_java7Helper != null) {
-                    PropertyName name = _java7Helper.findConstructorName(p);
-                    if (name != null) {
-                        return name;
-                    }
+                    return _java7Helper.findConstructorName(p);
                 }
             }
         }

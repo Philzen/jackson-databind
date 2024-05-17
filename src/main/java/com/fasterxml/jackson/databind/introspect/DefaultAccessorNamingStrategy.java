@@ -95,12 +95,9 @@ public class DefaultAccessorNamingStrategy
             type = type.getReferencedType();
         }
         // First, well-known JDK boolean types
-        if (type.hasRawClass(Boolean.TYPE)
-                || type.hasRawClass(Boolean.class)
-                || type.hasRawClass(AtomicBoolean.class)) {
-            return true;
-        }
-        return false;
+        return type.hasRawClass(Boolean.TYPE)
+            || type.hasRawClass(Boolean.class)
+            || type.hasRawClass(AtomicBoolean.class);
     }
 
     @Override
