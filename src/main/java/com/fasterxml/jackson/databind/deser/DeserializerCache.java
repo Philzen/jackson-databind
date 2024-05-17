@@ -560,22 +560,20 @@ public final class DeserializerCache
             }
         }
         JavaType contentType = type.getContentType();
-        if (contentType != null) {
-            if (contentType.getValueHandler() == null) { // as with above, avoid resetting (which would trigger exception)
-                Object cdDef = intr.findContentDeserializer(a);
-                if (cdDef != null) {
-                    JsonDeserializer<?> cd = null;
-                    if (cdDef instanceof JsonDeserializer<?>) {
-                        cd = (JsonDeserializer<?>) cdDef;
-                    } else {
-                        Class<?> cdClass = _verifyAsClass(cdDef, "findContentDeserializer", JsonDeserializer.None.class);
-                        if (cdClass != null) {
-                            cd = ctxt.deserializerInstance(a, cdClass);
-                        }
+        if (contentType != null && contentType.getValueHandler() == null) { // as with above, avoid resetting (which would trigger exception)
+            Object cdDef = intr.findContentDeserializer(a);
+            if (cdDef != null) {
+                JsonDeserializer<?> cd = null;
+                if (cdDef instanceof JsonDeserializer<?>) {
+                    cd = (JsonDeserializer<?>) cdDef;
+                } else {
+                    Class<?> cdClass = _verifyAsClass(cdDef, "findContentDeserializer", JsonDeserializer.None.class);
+                    if (cdClass != null) {
+                        cd = ctxt.deserializerInstance(a, cdClass);
                     }
-                    if (cd != null) {
-                        type = type.withContentValueHandler(cd);
-                    }
+                }
+                if (cd != null) {
+                    type = type.withContentValueHandler(cd);
                 }
             }
         }
