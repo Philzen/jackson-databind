@@ -573,16 +573,22 @@ anyField.getName()));
         if ((mode != null) && (mode != JsonCreator.Mode.DISABLED)) {
             return true;
         }
-        final String name = am.getName();
+
         // 24-Oct-2016, tatu: As per [databind#1429] must ensure takes exactly one arg
-        if ("valueOf".equals(name) && am.getParameterCount() == 1) {
+        if (am.getParameterCount() != 1) {
+            return false;
+        }
+        
+        final String name = am.getName();
+        if ("valueOf".equals(name)) {
             return true;
         }
         // [databind#208] Also accept "fromString()", if takes String or CharSequence
-        if ("fromString".equals(name) && am.getParameterCount() == 1) {
+        if ("fromString".equals(name)) {
             Class<?> cls = am.getRawParameterType(0);
             return cls == String.class || CharSequence.class.isAssignableFrom(cls);
         }
+        
         return false;
     }
 
@@ -605,13 +611,18 @@ anyField.getName()));
             }
             return AnnotatedAndMetadata.of(am, mode);
         }
-        final String name = am.getName();
+
         // 24-Oct-2016, tatu: As per [databind#1429] must ensure takes exactly one arg
-        if ("valueOf".equals(name) && am.getParameterCount() == 1) {
+        if (am.getParameterCount() != 1) {
+            return null;
+        }
+        
+        final String name = am.getName();
+        if ("valueOf".equals(name)) {
             return AnnotatedAndMetadata.of(am, mode);
         }
         // [databind#208] Also accept "fromString()", if takes String or CharSequence
-        if ("fromString".equals(name) && am.getParameterCount() == 1) {
+        if ("fromString".equals(name)) {
             Class<?> cls = am.getRawParameterType(0);
             if (cls == String.class || CharSequence.class.isAssignableFrom(cls)) {
                 return AnnotatedAndMetadata.of(am, mode);
